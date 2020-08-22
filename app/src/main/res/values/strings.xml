@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Pengguna Github</string>
+    <string name="name">Nama</string>
+    <string name="number">888</string>
+    <string name="username">Username</string>
+    <string name="location">Location</string>
+    <string name="work">Bekerja</string>
+    <string name="repository">Repository</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="foto_profil">Foto Profil</string>
+    <string name="pengaturan">pengaturan</string>
+    <string name="link"><u>Tautan</u></string>
+    <string name="search">Cari..</string>
+    <string name="search_img">search_img</string>
+
+    <!-- Other string resources-->
+
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>
