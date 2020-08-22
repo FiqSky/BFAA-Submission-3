@@ -1,6 +1,5 @@
 package com.fiqsky.githubuserapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +22,6 @@ class SearchViewModel : ViewModel() {
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
             ) {
-                Log.d("message", "onResponse: " + response.body())
                 if (response.isSuccessful) {
                     val list = response.body()?.items
                     _searchResults.postValue(list)
@@ -32,7 +30,6 @@ class SearchViewModel : ViewModel() {
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 _searchResults.postValue(emptyList())
-                Log.d("message", "onFailure: " + t.message)
             }
         })
     }

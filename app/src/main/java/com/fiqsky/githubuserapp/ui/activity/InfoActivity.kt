@@ -51,7 +51,7 @@ class InfoActivity : AppCompatActivity() {
             ) {
                 Log.d("message", "onResponse: " + response.body())
                 if (response.isSuccessful) {
-                    val list = ArrayList<User>(response.body().orEmpty())
+                    val list = ArrayList(response.body().orEmpty())
                     adapter.addFragment(FollowingFragment.newInstance(list), title)
                 }
             }
@@ -68,7 +68,7 @@ class InfoActivity : AppCompatActivity() {
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 Log.d("message", "onResponse: " + response.body())
-                val list = ArrayList<User>(response.body().orEmpty())
+                val list = ArrayList(response.body().orEmpty())
                 adapter.addFragment(FollowingFragment.newInstance(list), title)
             }
 
@@ -108,19 +108,19 @@ class InfoActivity : AppCompatActivity() {
         if (user?.name != null) {
             txt_name.text = user.name
         } else {
-            txt_name.text = "Unknown"
+            txt_name.text = getString(R.string.unknown)
         }
 
         if (user?.location != null) {
             txt_location.text = user.location
         } else {
-            txt_location.text = "-"
+            txt_location.text = getString(R.string.nope)
         }
 
         if (user?.company != null) {
             txt_work.text = user.company
         } else {
-            txt_work.text = "-"
+            txt_work.text = getString(R.string.nope)
         }
 
         if (user?.blog != null) {
@@ -131,7 +131,7 @@ class InfoActivity : AppCompatActivity() {
             }
             txt_link.text = url
         } else {
-            txt_link.text = "-"
+            txt_link.text = getString(R.string.nope)
         }
 
         Picasso.get()

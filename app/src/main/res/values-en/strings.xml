@@ -13,6 +13,8 @@
     <string name="link"><u>Link</u></string>
     <string name="search">Search..</string>
     <string name="search_img">search_img</string>
+    <string name="unknown">Unknown</string>
+    <string name="nope">-</string>
 
     <!-- Other string resources-->
 
