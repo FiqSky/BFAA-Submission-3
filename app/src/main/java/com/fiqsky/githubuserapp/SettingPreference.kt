@@ -3,7 +3,7 @@ package com.fiqsky.githubuserapp
 import android.content.Context
 import android.content.SharedPreferences
 
-class SettingPreference(private val context: Context) {
+class SettingPreference(val context: Context) {
 
     private val s = "github_user"
     private val init = "init"
