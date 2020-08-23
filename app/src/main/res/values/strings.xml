@@ -8,15 +8,14 @@
     <string name="repository">Repository</string>
     <string name="followers">Pengikut</string>
     <string name="following">Mengikuti</string>
-    <string name="foto_profil">Foto Profil</string>
-    <string name="pengaturan">pengaturan</string>
+    <string name="profile_picture">Foto Profil</string>
+    <string name="setting" translatable="false">pengaturan</string>
     <string name="link"><u>Tautan</u></string>
     <string name="search">Cari..</string>
     <string name="search_img">search_img</string>
     <string name="unknown">Unknown</string>
     <string name="nope">-</string>
+    <string name="favorite">favorite</string>
 
     <!-- Other string resources-->
-
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>

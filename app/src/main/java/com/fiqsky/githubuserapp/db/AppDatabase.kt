@@ -5,23 +5,28 @@ import androidx.room.Room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
+/*
 @Database(entities = arrayOf(User::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
 
-        /**
+        */
+/**
          * The only instance
-         */
+         *//*
+
         private var sInstance: AppDatabase? = null
 
-        /**
+        */
+/**
          * Gets the singleton instance of SampleDatabase.
          *
          * @param context The context.
          * @return The singleton instance of SampleDatabase.
-         */
+         *//*
+
         @Synchronized
         fun getInstance(context: Context): AppDatabase {
             if (sInstance == null) {
@@ -34,4 +39,4 @@ abstract class AppDatabase : RoomDatabase() {
             return sInstance!!
         }
     }
-}
+}*/

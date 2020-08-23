@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_fav"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/favorite"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/menu_settings"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/pengaturan"
         app:showAsAction="ifRoom" />
+
 
 </menu>

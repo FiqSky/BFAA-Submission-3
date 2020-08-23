@@ -2,7 +2,6 @@ package com.fiqsky.githubuserapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -72,8 +71,11 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_settings -> {
-                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
+                true
+            }
+            R.id.menu_fav -> {
                 true
             }
             else -> super.onOptionsItemSelected(item)

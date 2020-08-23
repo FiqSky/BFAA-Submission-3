@@ -4,6 +4,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
+/*
 interface UserDao {
     @Query("SELECT * FROM user")
     fun getAll(): List<User>
@@ -20,4 +21,4 @@ interface UserDao {
 
     @Delete
     fun delete(user: User)
-}
+}*/
