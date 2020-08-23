@@ -11,7 +11,7 @@
     <item
         android:id="@+id/menu_settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="@string/pengaturan"
+        android:title="@string/setting"
         app:showAsAction="ifRoom" />
 
 

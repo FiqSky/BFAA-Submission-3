@@ -10,7 +10,7 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_margin="20dp"
-        android:contentDescription="@string/foto_profil"
+        android:contentDescription="@string/profile_picture"
         android:src="@drawable/placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
