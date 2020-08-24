@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.item_user.view.*
 class UserAdapter(
 
     private val list: MutableList<User>? = mutableListOf(),
-    private val onClick: ((User) -> Unit)? = null
+    private val onClick: ((User) -> Unit)? = null,
+    private val onLongClick: ((User, Int) -> Unit)? = null
 ) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +36,12 @@ class UserAdapter(
         }
     }
 
+    fun removeItem(position: Int) {
+        this.list?.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, this.list?.size ?: 0)
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User?) {
             Picasso.get()
@@ -47,6 +54,12 @@ class UserAdapter(
                 if (user != null) {
                     onClick?.invoke(user)
                 }
+            }
+            itemView.setOnLongClickListener {
+                if (user != null) {
+                    onLongClick?.invoke(user, adapterPosition)
+                }
+                return@setOnLongClickListener true
             }
         }
     }
