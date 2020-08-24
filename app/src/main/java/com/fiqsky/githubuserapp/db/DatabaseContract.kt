@@ -22,7 +22,7 @@ class DatabaseContract {
             const val FOLLOWER = "follower"
             const val FOLLOWING = "following"
 
-            val CONTENT_URI = Uri.Builder().scheme(DatabaseContract().SCHEME)
+            val CONTENT_URI: Uri = Uri.Builder().scheme(DatabaseContract().SCHEME)
                 .authority(DatabaseContract().AUTHORITY)
                 .appendPath(DatabaseContract().TABLE_NAME)
                 .build()

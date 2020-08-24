@@ -85,6 +85,8 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
                 true
             }
             R.id.menu_fav -> {
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
