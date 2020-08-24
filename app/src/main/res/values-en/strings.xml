@@ -19,6 +19,7 @@
     <string name="daily_notif_message">Dont Forget to back github user</string>
     <string name="reminder">Reminder</string>
     <string name="language">Language</string>
+    <string name="add_to_favorite">add to favorite</string>
 
     <!-- Other string resources-->
 

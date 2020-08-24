@@ -12,7 +12,7 @@
         android:background="@color/whiteActivityInfo">
 
         <include layout="@layout/info_user" />
-
+        <include layout="@layout/btn_fav" />
         <include layout="@layout/desc_user" />
 
         <com.google.android.material.tabs.TabLayout
