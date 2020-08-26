@@ -5,11 +5,12 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
 
 class UserHelper(context: Context?) {
     companion object {
-        val DATABASE_TABLE = DatabaseContract().TABLE_NAME
+        val DATABASE_TABLE = TABLE_NAME
         private lateinit var databaseHelper: DatabaseHelper
         private lateinit var database : SQLiteDatabase
 
@@ -37,7 +38,6 @@ class UserHelper(context: Context?) {
     fun queryAll(): Cursor {
         return database.query(
             DATABASE_TABLE,
-            null,
             null,
             null,
             null,

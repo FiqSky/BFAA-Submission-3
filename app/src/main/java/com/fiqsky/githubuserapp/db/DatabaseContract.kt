@@ -7,10 +7,11 @@ class DatabaseContract {
     val AUTHORITY = "com.fiqsky.githubuserapp"
     val SCHEME = "context"
 
-    val TABLE_NAME = "user"
+//    val TABLE_NAME = "user"
 
     internal class UserColumns: BaseColumns {
         companion object {
+            const val TABLE_NAME = "user"
             const val ID = "id"
             const val USERNAME = "username"
             const val NAME = "name"
@@ -24,7 +25,7 @@ class DatabaseContract {
 
             val CONTENT_URI: Uri = Uri.Builder().scheme(DatabaseContract().SCHEME)
                 .authority(DatabaseContract().AUTHORITY)
-                .appendPath(DatabaseContract().TABLE_NAME)
+                .appendPath(TABLE_NAME)
                 .build()
         }
     }
