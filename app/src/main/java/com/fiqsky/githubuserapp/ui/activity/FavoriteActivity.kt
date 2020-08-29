@@ -25,6 +25,7 @@ class FavoriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite)
+        title = getString(R.string.favorite_users)
 
             //Inisialisasi class user helper
             helper = UserHelper.getInstance(applicationContext)
@@ -60,13 +61,13 @@ class FavoriteActivity : AppCompatActivity() {
 
         private fun loadUsersAsync() {
             GlobalScope.launch(Dispatchers.Main) {
-                progress_bar_fav.visibility = View.VISIBLE
+//                progress_bar_fav.visibility = View.VISIBLE
                 val deferredNotes = async(Dispatchers.IO) {
                     //Get data query dari tabel
                     val cursor = helper.queryAll()
                     MappingHelper().mapCursorToArrayList(cursor)
                 }
-                progress_bar_fav.visibility = View.INVISIBLE
+//                progress_bar_fav.visibility = View.INVISIBLE
                 //Hasil dari query: list user
                 val notes: ArrayList<User> = deferredNotes.await()
                 addUsersToAdapter(notes)

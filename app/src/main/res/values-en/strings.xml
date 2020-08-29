@@ -20,6 +20,8 @@
     <string name="reminder">Reminder</string>
     <string name="language">Language</string>
     <string name="add_to_favorite">add to favorite</string>
+    <string name="favorite_users">favorite users</string>
+    <string name="delete_from_favorite">Delete from favorite</string>
 
     <!-- Other string resources-->
 

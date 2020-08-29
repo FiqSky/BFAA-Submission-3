@@ -24,11 +24,11 @@ internal class DatabaseHelper(context: Context?): SQLiteOpenHelper(context, DATA
         private val SQL_CREATE_TABLE_USER = "CREATE TABLE $TABLE_NAME" +
                 " (${ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " $USERNAME TEXT NOT NULL," +
-                " $NAME TEXT NOT NULL," +
-                " $AVATAR_URL TEXT NOT NULL," +
-                " $LOCATION TEXT NOT NULL," +
-                " $COMPANY TEXT NOT NULL," +
-                " $BLOG TEXT NOT NULL," +
+                " $NAME TEXT," +
+                " $AVATAR_URL TEXT," +
+                " $LOCATION TEXT," +
+                " $COMPANY TEXT," +
+                " $BLOG TEXT," +
                 " $REPO TEXT NOT NULL," +
                 " $FOLLOWER TEXT NOT NULL," +
                 " $FOLLOWING TEXT NOT NULL)"

@@ -1,18 +1,35 @@
 package com.fiqsky.githubuserapp.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fiqsky.githubuserapp.R
 import com.fiqsky.githubuserapp.api.ApiClient
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.NAME
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.LOCATION
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.COMPANY
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING
+import com.fiqsky.githubuserapp.db.UserHelper
 import com.fiqsky.githubuserapp.ui.adapter.SectionAdapter
 import com.fiqsky.githubuserapp.ui.fragment.FollowingFragment
 import com.fiqsky.githubuserapp.utils.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_info.*
+import kotlinx.android.synthetic.main.btn_fav.*
 import kotlinx.android.synthetic.main.desc_user.*
 import kotlinx.android.synthetic.main.info_user.*
 import retrofit2.Call
@@ -27,6 +44,7 @@ class InfoActivity : AppCompatActivity() {
     }
 
     private lateinit var adapter: SectionAdapter
+    private lateinit var helper: UserHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +59,9 @@ class InfoActivity : AppCompatActivity() {
         adapter = SectionAdapter(supportFragmentManager)
         view_pager.adapter = adapter
         tabs.setupWithViewPager(view_pager)
+
+        helper = UserHelper.getInstance(applicationContext)
+        helper.open()
     }
 
     private fun getFollowers(userName: String, title: String) {
@@ -139,5 +160,53 @@ class InfoActivity : AppCompatActivity() {
             .placeholder(R.drawable.placeholder)
             .error(R.color.design_default_color_error)
             .into(img_avatar)
+
+        btn_favorite.setOnClickListener{
+            addToFavorite(user)
+        }
+    }
+
+    private fun addToFavorite(user: User?) {
+        if (user != null) {
+            //Inisialisasi content values
+            val values = ContentValues()
+            values.put(ID,user.id)
+            values.put(USERNAME, user.userName)
+            values.put(NAME, user.name)
+            values.put(AVATAR_URL, user.avatarUrl)
+            values.put(LOCATION, user.location)
+            values.put(COMPANY, user.company)
+            values.put(BLOG, user.blog)
+            values.put(REPO, user.publicRepos)
+            values.put(FOLLOWER, user.totalFollowers)
+            values.put(FOLLOWING, user.totalFollowing)
+
+            //Panggil method insert dari helper
+            val result = helper.insert(values)
+            showResult(result)
+        }
+    }
+
+    private fun showResult(result: Long) {
+        when {
+            result > 0 -> {
+                Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun addButton(state: Boolean) {
+        if (state){
+            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
+            btn_favorite.setTextColor(Color.WHITE)
+            btn_favorite.text = getString(R.string.add_to_favorite)
+        } else {
+            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            btn_favorite.setTextColor(Color.WHITE)
+            btn_favorite.text = getString(R.string.delete_from_favorite)
+        }
     }
 }
