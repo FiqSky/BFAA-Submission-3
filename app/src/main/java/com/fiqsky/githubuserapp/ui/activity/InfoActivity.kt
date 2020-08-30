@@ -184,6 +184,7 @@ class InfoActivity : AppCompatActivity() {
             //Panggil method insert dari helper
             val result = helper.insert(values)
             showResult(result)
+//            addButton(state = true)
         }
     }
 
@@ -191,19 +192,23 @@ class InfoActivity : AppCompatActivity() {
         when {
             result > 0 -> {
                 Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+                btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
             }
             else -> {
                 Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+                btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
     }
 
     fun addButton(state: Boolean) {
         if (state){
+            Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
             btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
             btn_favorite.setTextColor(Color.WHITE)
             btn_favorite.text = getString(R.string.add_to_favorite)
         } else {
+            Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
             btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             btn_favorite.setTextColor(Color.WHITE)
             btn_favorite.text = getString(R.string.delete_from_favorite)
