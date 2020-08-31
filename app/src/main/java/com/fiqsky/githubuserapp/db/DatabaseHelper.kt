@@ -21,7 +21,7 @@ internal class DatabaseHelper(context: Context?): SQLiteOpenHelper(context, DATA
         private const val DATABASE_NAME = "db_user"
         private const val DATABASE_VERSION = 1
 
-        private val SQL_CREATE_TABLE_USER = "CREATE TABLE $TABLE_NAME" +
+        private const val SQL_CREATE_TABLE_USER = "CREATE TABLE $TABLE_NAME" +
                 " (${ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " $USERNAME TEXT NOT NULL," +
                 " $NAME TEXT," +
