@@ -13,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fiqsky.githubuserapp.AlarmReceiver
 import com.fiqsky.githubuserapp.R
-import com.fiqsky.githubuserapp.SettingPreference
 import com.fiqsky.githubuserapp.ui.adapter.UserAdapter
 import com.fiqsky.githubuserapp.utils.User
 import com.fiqsky.githubuserapp.viewmodel.SearchViewModel
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private lateinit var adapter: UserAdapter
     private lateinit var searchViewModel: SearchViewModel
-    private val alarmReceiver = AlarmReceiver()
+//    private val alarmReceiver = AlarmReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +42,12 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         initRecyclerView()
         edit_search.setOnEditorActionListener(this)
 
-        val sharedPreferences : SettingPreference = SettingPreference(applicationContext).getInstance(applicationContext)
+//        val sharedPreferences : SettingPreference = SettingPreference(applicationContext).getInstance(applicationContext)
 
-        if (sharedPreferences.checkInit() == 0){
+        /*if (sharedPreferences.checkInit() == 0){
             sharedPreferences.setDailyReminder(true)
             alarmReceiver.setRepeatingAlarm(applicationContext,"07:00","Don't forget to back the app github users")
-        }
+        }*/
     }
 
     private fun initRecyclerView() {
