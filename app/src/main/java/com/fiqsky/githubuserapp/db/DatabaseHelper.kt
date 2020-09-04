@@ -32,31 +32,6 @@ internal class DatabaseHelper(context: Context?): SQLiteOpenHelper(context, DATA
                 " $REPO TEXT NOT NULL," +
                 " $FOLLOWER TEXT NOT NULL," +
                 " $FOLLOWING TEXT NOT NULL)"
-
-        /*private val SQL_CREATE_TABLE_USER = String.format(
-            "CREATE TABLE %s" +
-                    " %s INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL)",
-            TABLE_NAME,
-            ID,
-            USERNAME,
-            NAME,
-            AVATAR_URL,
-            LOCATION,
-            COMPANY,
-            BLOG,
-            REPO,
-            FOLLOWER,
-            FOLLOWING
-        )*/
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

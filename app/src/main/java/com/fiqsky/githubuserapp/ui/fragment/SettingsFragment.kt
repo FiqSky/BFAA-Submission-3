@@ -1,6 +1,5 @@
 package com.fiqsky.githubuserapp.ui.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -10,7 +9,6 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.fiqsky.githubuserapp.AlarmReceiver
 import com.fiqsky.githubuserapp.R
-import com.fiqsky.githubuserapp.SettingPreference
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -18,7 +16,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference, rootKey)
-        val sharedPreferences = SettingPreference(context as Context).getInstance(context as Context)
+//        val sharedPreferences = SettingPreference(context as Context).getInstance(context as Context)
 
         val dailyReminderSwitch = findPreference<SwitchPreferenceCompat>("notifications")
         val languagePreference = findPreference<Preference>("preference_language")

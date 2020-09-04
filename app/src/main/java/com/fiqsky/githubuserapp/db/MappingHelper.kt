@@ -13,9 +13,43 @@ import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOW
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING
 import com.fiqsky.githubuserapp.utils.User
 
-class MappingHelper {
+object MappingHelper {
 
-    fun mapCursorToArrayList(userCursor: Cursor): ArrayList<User>{
+    fun mapCursorToArrayList(userCursor: Cursor?): ArrayList<User> {
+        val userList = ArrayList<User>()
+
+        userCursor?.apply {
+            while (userCursor.moveToNext()) {
+                val id = userCursor.getString(userCursor.getColumnIndexOrThrow(ID))
+                val username = userCursor.getString(userCursor.getColumnIndexOrThrow(USERNAME))
+                val name = userCursor.getString(userCursor.getColumnIndexOrThrow(NAME))
+                val avatar = userCursor.getString(userCursor.getColumnIndexOrThrow(AVATAR_URL))
+                val location = userCursor.getString(userCursor.getColumnIndexOrThrow(LOCATION))
+                val company = userCursor.getString(userCursor.getColumnIndexOrThrow(COMPANY))
+                val blog = userCursor.getString(userCursor.getColumnIndexOrThrow(BLOG))
+                val repo = userCursor.getString(userCursor.getColumnIndexOrThrow(REPO))
+                val follower = userCursor.getString(userCursor.getColumnIndexOrThrow(FOLLOWER))
+                val following = userCursor.getString(userCursor.getColumnIndexOrThrow(FOLLOWING))
+                userList.add(
+                    User(
+                        id,
+                        username,
+                        name,
+                        avatar,
+                        location,
+                        company,
+                        blog,
+                        repo,
+                        follower,
+                        following
+                    )
+                )
+            }
+        }
+        return userList
+    }
+
+    /*fun mapCursorToArrayList(userCursor: Cursor): ArrayList<User>{
         val userList = ArrayList<User>()
 
         while (userCursor.moveToNext()){
@@ -32,5 +66,5 @@ class MappingHelper {
             userList.add(User(id,username,name,avatar,location,company, blog,repo,follower,following))
         }
         return userList
-    }
+    }*/
 }

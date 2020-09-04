@@ -61,13 +61,13 @@ class FavoriteActivity : AppCompatActivity() {
 
         private fun loadUsersAsync() {
             GlobalScope.launch(Dispatchers.Main) {
-//                progress_bar_fav.visibility = View.VISIBLE
+                progress_bar_fav.visibility = View.VISIBLE
                 val deferredNotes = async(Dispatchers.IO) {
                     //Get data query dari tabel
                     val cursor = helper.queryAll()
-                    MappingHelper().mapCursorToArrayList(cursor)
+                    MappingHelper.mapCursorToArrayList(cursor)
                 }
-//                progress_bar_fav.visibility = View.INVISIBLE
+                progress_bar_fav.visibility = View.INVISIBLE
                 //Hasil dari query: list user
                 val notes: ArrayList<User> = deferredNotes.await()
                 addUsersToAdapter(notes)
@@ -91,8 +91,12 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
 
-        override fun onDestroy() {
+    override fun onResume() {
+        super.onResume()
+        helper.close()
+    }
+        /*override fun onDestroy() {
             super.onDestroy()
             helper.close()
-        }
+        }*/
     }
