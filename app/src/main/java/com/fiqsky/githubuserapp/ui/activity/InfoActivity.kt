@@ -4,15 +4,16 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fiqsky.githubuserapp.R
 import com.fiqsky.githubuserapp.api.ApiClient
+import com.fiqsky.githubuserapp.db.DatabaseContract
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.NAME
@@ -43,6 +44,7 @@ class InfoActivity : AppCompatActivity() {
         const val EXTRA_USER = "user"
     }
 
+    private lateinit var id : String
     private lateinit var adapter: SectionAdapter
     private lateinit var helper: UserHelper
 
@@ -62,6 +64,13 @@ class InfoActivity : AppCompatActivity() {
 
         helper = UserHelper.getInstance(applicationContext)
         helper.open()
+
+        btn_favorite.setOnClickListener{
+//            addToFavorite(user)
+            addFavoriteUser()
+//            removeFavorite(user)
+//            removeFavoriteUser()
+        }
     }
 
     private fun getFollowers(userName: String, title: String) {
@@ -160,31 +169,87 @@ class InfoActivity : AppCompatActivity() {
             .placeholder(R.drawable.placeholder)
             .error(R.color.design_default_color_error)
             .into(img_avatar)
-
-        btn_favorite.setOnClickListener{
-            addToFavorite(user)
-        }
     }
 
-    private fun addToFavorite(user: User?) {
-        if (user != null) {
+    /*private fun addToFavorite(user: User?) {
+        if (user == null) {
             //Inisialisasi content values
             val values = ContentValues()
-            values.put(ID,user.id)
-            values.put(USERNAME, user.userName)
-            values.put(NAME, user.name)
-            values.put(AVATAR_URL, user.avatarUrl)
-            values.put(LOCATION, user.location)
-            values.put(COMPANY, user.company)
-            values.put(BLOG, user.blog)
-            values.put(REPO, user.publicRepos)
-            values.put(FOLLOWER, user.totalFollowers)
-            values.put(FOLLOWING, user.totalFollowing)
+            values.put(ID,user?.id)
+            values.put(USERNAME, user?.userName)
+            values.put(NAME, user?.name)
+            values.put(AVATAR_URL, user?.avatarUrl)
+            values.put(LOCATION, user?.location)
+            values.put(COMPANY, user?.company)
+            values.put(BLOG, user?.blog)
+            values.put(REPO, user?.publicRepos)
+            values.put(FOLLOWER, user?.totalFollowers)
+            values.put(FOLLOWING, user?.totalFollowing)
 
             //Panggil method insert dari helper
             val result = helper.insert(values)
             showResult(result)
 //            addButton(state = true)
+        }
+    }*/
+
+    private fun addFavoriteUser() {
+        try {
+//            id = intent?.getStringExtra(EXTRA_USER).toString()
+//            avatarUrl = intent?.getStringExtra(EXTRA_AVATAR_URL).toString()
+
+            val values = ContentValues().apply {
+                val values = ContentValues()
+                values.put(ID,User().id)
+                values.put(USERNAME, User().userName)
+                values.put(NAME, User().name)
+                values.put(AVATAR_URL, User().avatarUrl)
+                values.put(LOCATION, User().location)
+                values.put(COMPANY, User().company)
+                values.put(BLOG, User().blog)
+                values.put(REPO, User().publicRepos)
+                values.put(FOLLOWER, User().totalFollowers)
+                values.put(FOLLOWING, User().totalFollowing)
+            }
+            helper.insert(values)
+            Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+            Log.d("onInsert:.. ", values.toString())
+        } catch (e : SQLiteConstraintException) {
+            e.printStackTrace()
+        }
+    }
+
+    /*private fun removeFavoriteUser() {
+        try {
+            id = intent?.getStringExtra(EXTRA_USER).toString()
+
+            val result = helper.deleteById(id)
+//            val text = resources.getString(R.string.set_toast_delete)
+            Toast.makeText(this, "Berhasil menghapus data", Toast.LENGTH_SHORT).show()
+
+            Log.d("on:Remove..", result.toString())
+        } catch (e : SQLiteConstraintException){
+            e.printStackTrace()
+        }
+    }*/
+
+    private fun removeFavorite(user: User?) {
+        if (user == null) {
+            /*//Inisialisasi content values
+            val values = ContentValues()
+            values.put(ID,user?.id)
+            values.put(USERNAME, user?.userName)
+            values.put(NAME, user?.name)
+            values.put(AVATAR_URL, user?.avatarUrl)
+            values.put(LOCATION, user?.location)
+            values.put(COMPANY, user?.company)
+            values.put(BLOG, user?.blog)
+            values.put(REPO, user?.publicRepos)
+            values.put(FOLLOWER, user?.totalFollowers)
+            values.put(FOLLOWING, user?.totalFollowing)*/
+
+            /*val result = helper.deleteById(values)
+            showResultRemove(result)*/
         }
     }
 
@@ -195,6 +260,17 @@ class InfoActivity : AppCompatActivity() {
             }
             else -> {
                 Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showResultRemove(result: Int) {
+        when {
+            result > 0 -> {
+                Toast.makeText(this, "Berhasil menghapus data", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, "Gagal menghapus data", Toast.LENGTH_SHORT).show()
             }
         }
     }

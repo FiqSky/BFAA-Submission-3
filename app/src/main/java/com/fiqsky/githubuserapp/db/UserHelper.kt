@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
+import com.fiqsky.githubuserapp.utils.User
 
 class UserHelper(context: Context?) {
     companion object {

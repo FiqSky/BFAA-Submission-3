@@ -1,16 +1,21 @@
 package com.fiqsky.githubuserapp.ui.activity
 
 import android.content.Intent
+import android.database.ContentObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiqsky.githubuserapp.R
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
 import com.fiqsky.githubuserapp.db.MappingHelper
 import com.fiqsky.githubuserapp.db.UserHelper
 import com.fiqsky.githubuserapp.ui.adapter.UserAdapter
 import com.fiqsky.githubuserapp.utils.User
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_favorite.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,17 +40,29 @@ class FavoriteActivity : AppCompatActivity() {
 
             //Mendapatkan hasil list query dan ditampilkan ke recyclerview
             loadUsersAsync()
+            /*val handlerThread = HandlerThread("DataObserver")
+            handlerThread.start()
+            val handler = Handler(handlerThread.looper)
+
+            val myObserver = object : ContentObserver(handler){
+                override fun onChange(selfChange: Boolean) {
+                    loadUsersAsync()
+                }
+            }
+            contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)*/
         }
 
         private fun initRecyclerView() {
-            adapter = UserAdapter(onClick = { user: User ->
+            /*adapter = UserAdapter(onClick = { user: User ->
                 val intent = Intent(this, InfoActivity::class.java)
                 intent.putExtra(InfoActivity.EXTRA_USER, user)
                 startActivity(intent)
             }, onLongClick = { user, position ->
                 deleteUser(user, position)
-            })
+            })*/
+            adapter = UserAdapter()
             rv_favorite.layoutManager = LinearLayoutManager(this)
+            rv_favorite.hasFixedSize()
             rv_favorite.adapter = adapter
         }
 
@@ -65,12 +82,24 @@ class FavoriteActivity : AppCompatActivity() {
                 val deferredNotes = async(Dispatchers.IO) {
                     //Get data query dari tabel
                     val cursor = helper.queryAll()
+//                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                     MappingHelper.mapCursorToArrayList(cursor)
                 }
                 progress_bar_fav.visibility = View.INVISIBLE
                 //Hasil dari query: list user
                 val notes: ArrayList<User> = deferredNotes.await()
                 addUsersToAdapter(notes)
+                /*if (notes.size > 0) {
+                    adapter.list = notes
+                } else {
+                    adapter.list = ArrayList()
+                    Toast.makeText(
+                        this@FavoriteActivity,
+                        "Tidak ada data saat ini",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }*/
             }
         }
 
@@ -91,12 +120,12 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         helper.close()
-    }
-        /*override fun onDestroy() {
+    }*/
+        override fun onDestroy() {
             super.onDestroy()
             helper.close()
-        }*/
+        }
     }
