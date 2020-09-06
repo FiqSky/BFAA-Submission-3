@@ -4,9 +4,10 @@ import android.net.Uri
 import android.provider.BaseColumns
 
 class DatabaseContract {
-    val AUTHORITY = "com.fiqsky.githubuserapp"
-    val SCHEME = "context"
-
+    companion object {
+        const val AUTHORITY = "com.fiqsky.githubuserapp"
+        const val SCHEME = "context"
+    }
 //    val TABLE_NAME = "user"
 
     internal class UserColumns: BaseColumns {
@@ -23,8 +24,8 @@ class DatabaseContract {
             const val FOLLOWER = "follower"
             const val FOLLOWING = "following"
 
-            val CONTENT_URI: Uri = Uri.Builder().scheme(DatabaseContract().SCHEME)
-                .authority(DatabaseContract().AUTHORITY)
+            val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
+                .authority(AUTHORITY)
                 .appendPath(TABLE_NAME)
                 .build()
         }

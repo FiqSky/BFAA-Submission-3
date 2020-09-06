@@ -16,6 +16,14 @@ class UserAdapter(
     private val onLongClick: ((User, Int) -> Unit)? = null
 ) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+    var listFav = ArrayList<User>()
+        set(listFav){
+            if (listFav.size>0){
+                this.listFav.clear()
+            }
+            this.listFav.addAll(listFav)
+            notifyDataSetChanged()
+        }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
@@ -28,6 +36,20 @@ class UserAdapter(
         holder.bind(list?.get(position))
     }
 
+    /*fun addAll() {
+        set(listFav){
+            if (listFav.size>0){
+                this.listFav.clear()
+            }
+            this.listFav.addAll(listFav)
+            notifyDataSetChanged()
+        }
+        *//*if (result != null) {
+            list?.clear()
+            list?.addAll(result)
+            notifyDataSetChanged()
+        }*//*
+    }*/
     fun addAll(result: List<User>?) {
         if (result != null) {
             list?.clear()

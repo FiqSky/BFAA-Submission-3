@@ -10,8 +10,9 @@ import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNA
 import com.fiqsky.githubuserapp.utils.User
 
 class UserHelper(context: Context?) {
+
     companion object {
-        val DATABASE_TABLE = TABLE_NAME
+        const val DATABASE_TABLE = TABLE_NAME
         private lateinit var databaseHelper: DatabaseHelper
         private lateinit var database : SQLiteDatabase
 

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         searchViewModel.searchResults.observe(this, Observer { list: List<User>? ->
             progress(false)
             adapter.addAll(list)
+//            adapter.listFav
         })
 
         initRecyclerView()

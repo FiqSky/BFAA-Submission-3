@@ -24,8 +24,12 @@ import kotlinx.coroutines.launch
 
 class FavoriteActivity : AppCompatActivity() {
 
-    private lateinit var helper: UserHelper
+//    private lateinit var helper: UserHelper
     private lateinit var adapter: UserAdapter
+
+    companion object {
+        private const val EXTRA_STATE = "EXTRA_STATE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +37,13 @@ class FavoriteActivity : AppCompatActivity() {
         title = getString(R.string.favorite_users)
 
             //Inisialisasi class user helper
-            helper = UserHelper.getInstance(applicationContext)
-            helper.open()
+//            helper = UserHelper.getInstance(applicationContext)
+//            helper.open()
 
             initRecyclerView()
 
             //Mendapatkan hasil list query dan ditampilkan ke recyclerview
-            loadUsersAsync()
+//            loadUsersAsync()
             /*val handlerThread = HandlerThread("DataObserver")
             handlerThread.start()
             val handler = Handler(handlerThread.looper)
@@ -48,8 +52,29 @@ class FavoriteActivity : AppCompatActivity() {
                 override fun onChange(selfChange: Boolean) {
                     loadUsersAsync()
                 }
+            }*/
+
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(self: Boolean) {
+//                loadNotesAsync()
+                loadUsersAsync()
             }
-            contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)*/
+        }
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+
+        if (savedInstanceState == null) {
+//            loadNotesAsync()
+            loadUsersAsync()
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)
+            if (list != null) {
+                adapter.listFav = list
+            }
+        }
+
         }
 
         private fun initRecyclerView() {
@@ -66,7 +91,7 @@ class FavoriteActivity : AppCompatActivity() {
             rv_favorite.adapter = adapter
         }
 
-        private fun deleteUser(user: User, position: Int) {
+        /*private fun deleteUser(user: User, position: Int) {
             val result = helper.deleteByUsername(username = user.userName)
             if (result > 0) {
                 adapter.removeItem(position)
@@ -74,20 +99,20 @@ class FavoriteActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Data gagal dihapus", Toast.LENGTH_LONG).show()
             }
-        }
+        }*/
 
         private fun loadUsersAsync() {
             GlobalScope.launch(Dispatchers.Main) {
                 progress_bar_fav.visibility = View.VISIBLE
                 val deferredNotes = async(Dispatchers.IO) {
                     //Get data query dari tabel
-                    val cursor = helper.queryAll()
-//                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
+//                    val cursor = helper.queryAll()
+                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                     MappingHelper.mapCursorToArrayList(cursor)
                 }
                 progress_bar_fav.visibility = View.INVISIBLE
                 //Hasil dari query: list user
-                val notes: ArrayList<User> = deferredNotes.await()
+                val notes = deferredNotes.await()
                 addUsersToAdapter(notes)
                 /*if (notes.size > 0) {
                     adapter.list = notes
@@ -106,10 +131,10 @@ class FavoriteActivity : AppCompatActivity() {
         private fun addUsersToAdapter(notes: ArrayList<User>) {
             when {
                 notes.isNotEmpty() -> {
-                    adapter.addAll(notes)
+                    adapter.listFav
                 }
                 else -> {
-                    adapter.addAll(emptyList())
+                    adapter.listFav
                     Toast.makeText(
                         this@FavoriteActivity,
                         "Tidak ada data saat ini",
@@ -120,12 +145,21 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
 
+    /*override fun onSaveInstanceState(outState: Bundle, result: List<User>) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.listFav)
+    }*/
+
+    override fun onResume() {
+        super.onResume()
+        loadUsersAsync()
+    }
     /*override fun onResume() {
         super.onResume()
         helper.close()
     }*/
-        override fun onDestroy() {
+        /*override fun onDestroy() {
             super.onDestroy()
             helper.close()
-        }
+        }*/
     }
