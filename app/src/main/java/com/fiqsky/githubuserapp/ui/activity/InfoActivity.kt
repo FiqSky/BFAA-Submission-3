@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fiqsky.githubuserapp.R
@@ -21,6 +22,7 @@ import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.LOCATION
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.COMPANY
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING
@@ -38,13 +40,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class InfoActivity : AppCompatActivity() {
+class InfoActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val EXTRA_USER = "user"
     }
 
+    private var isFavorite = false
     private lateinit var id : String
+    private var user : User? = null
     private lateinit var adapter: SectionAdapter
     private lateinit var helper: UserHelper
 
@@ -65,12 +69,14 @@ class InfoActivity : AppCompatActivity() {
         helper = UserHelper.getInstance(applicationContext)
         helper.open()
 
-        btn_favorite.setOnClickListener{
+        /*btn_favorite.setOnClickListener{
 //            addToFavorite(user)
-            addFavoriteUser()
+//            addFavoriteUser()
 //            removeFavorite(user)
 //            removeFavoriteUser()
-        }
+            onClick(this)
+        }*/
+        btn_favorite.setOnClickListener(this)
     }
 
     private fun getFollowers(userName: String, title: String) {
@@ -169,6 +175,57 @@ class InfoActivity : AppCompatActivity() {
             .placeholder(R.drawable.placeholder)
             .error(R.color.design_default_color_error)
             .into(img_avatar)
+
+        isFavorite = true
+        val checked = R.string.add_to_favorite
+        btn_favorite.setText(checked)
+    }
+
+    override fun onClick(view: View){
+        val checked = R.string.add_to_favorite
+        val unChecked = R.string.delete_from_favorite
+        if (view.id == R.id.btn_favorite){
+            if (isFavorite) {
+                helper.deleteById(user?.id.toString())
+                Toast.makeText(this, getString(R.string.delete_from_favorite), Toast.LENGTH_SHORT).show()
+                btn_favorite.setText(unChecked)
+                isFavorite = false
+            } else {
+                /*val dataUsername = detail_username.text.toString()
+                val dataName = detail_name.text.toString()
+                val dataAvatar = imageAvatar
+                val datacompany = detail_company.text.toString()
+                val dataLocation = detail_location.text.toString()
+                val dataRepository = detail_repository.text.toString()
+                val dataFavorite = "1"
+
+                val values = ContentValues()
+                values.put(USERNAME, dataUsername)
+                values.put(NAME, dataName)
+                values.put(AVATAR, dataAvatar)
+                values.put(COMPANY, datacompany)
+                values.put(LOCATION, dataLocation)
+                values.put(REPOSITORY, dataRepository)
+                values.put(FAVORITE, dataFavorite)*/
+
+                val values = ContentValues()
+                values.put(ID,User().id)
+                values.put(USERNAME, User().userName)
+                values.put(NAME, User().name)
+                values.put(AVATAR_URL, User().avatarUrl)
+                values.put(LOCATION, User().location)
+                values.put(COMPANY, User().company)
+                values.put(BLOG, User().blog)
+                values.put(REPO, User().publicRepos)
+                values.put(FOLLOWER, User().totalFollowers)
+                values.put(FOLLOWING, User().totalFollowing)
+
+                isFavorite = true
+                contentResolver.insert(CONTENT_URI, values)
+                Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT).show()
+                btn_favorite.setText(checked)
+            }
+        }
     }
 
     /*private fun addToFavorite(user: User?) {
