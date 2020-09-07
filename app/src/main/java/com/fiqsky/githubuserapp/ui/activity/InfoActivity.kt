@@ -28,6 +28,7 @@ import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOW
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING
 import com.fiqsky.githubuserapp.db.UserHelper
 import com.fiqsky.githubuserapp.ui.adapter.SectionAdapter
+import com.fiqsky.githubuserapp.ui.adapter.UserAdapter
 import com.fiqsky.githubuserapp.ui.fragment.FollowingFragment
 import com.fiqsky.githubuserapp.utils.User
 import com.squareup.picasso.Picasso
@@ -46,10 +47,11 @@ class InfoActivity : AppCompatActivity(){
         const val EXTRA_USER = "user"
     }
 
-//    private var isFavorite = false
+    private var isFavorite = false
 //    private lateinit var id : String
 //    private var user : User? = null
     private lateinit var adapter: SectionAdapter
+    private lateinit var uAdapter: UserAdapter
     private lateinit var helper: UserHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,12 +64,12 @@ class InfoActivity : AppCompatActivity(){
 
         title = userName
 
+        helper = UserHelper.getInstance(applicationContext)
+        helper.open()
+
         adapter = SectionAdapter(supportFragmentManager)
         view_pager.adapter = adapter
         tabs.setupWithViewPager(view_pager)
-
-        helper = UserHelper.getInstance(applicationContext)
-        helper.open()
 
         /*btn_favorite.setOnClickListener{
 //            addToFavorite(user)
@@ -178,9 +180,9 @@ class InfoActivity : AppCompatActivity(){
             .error(R.color.design_default_color_error)
             .into(img_avatar)
 
-        /*isFavorite = true
+        isFavorite = true
         val checked = R.string.add_to_favorite
-        btn_favorite.setText(checked)*/
+        btn_favorite.setText(checked)
     }
 
     /*override fun onClick(view: View){
@@ -256,7 +258,7 @@ class InfoActivity : AppCompatActivity(){
     }*/
 
     private fun addToFavorite(user: User?) {
-        if (user != null) {
+        /*if (user != null) {
             //Inisialisasi content values
             val values = ContentValues()
             values.put(ID,user.id)
@@ -274,6 +276,25 @@ class InfoActivity : AppCompatActivity(){
             val result = helper.insert(values)
             showResult(result)
 //            addButton(state = true)
+        } else {
+            delete(user)
+        }*/
+        val checked = R.string.add_to_favorite
+        val unChecked = R.string.delete_from_favorite
+        if (isFavorite){
+            delete(user)
+        }
+    }
+
+    private fun delete(user: User?){
+        val result = user?.userName?.let { helper.deleteByUsername(username = it) }
+        if (result != null) {
+            if (result > 0) {
+                uAdapter.removeItem()
+                Toast.makeText(this, "Data berhasil dihapus", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Data gagal dihapus", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -286,6 +307,11 @@ class InfoActivity : AppCompatActivity(){
                 Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        helper.close()
     }
 
     /*private fun addFavoriteUser() {
