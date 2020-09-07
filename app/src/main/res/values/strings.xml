@@ -22,6 +22,9 @@
     <string name="add_to_favorite">add to favorite</string>
     <string name="favorite_users">favorite users</string>
     <string name="delete_from_favorite">Delete from favorite</string>
+    <string name="notification_reminder">Daily Reminder</string>
+    <string name="notification_disable">Notification is Disabled</string>
+    <string name="notification_enable">Notification is Enabled</string>
 
     <!-- Other string resources-->
 </resources>

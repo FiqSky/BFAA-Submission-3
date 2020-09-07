@@ -7,9 +7,9 @@
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_baseline_notifications_24"
             app:key="notifications"
-            android:summaryOff=""
-            app:title="Enable notification reminder"
-
+            android:summaryOff="@string/notification_disable"
+            android:summaryOn="@string/notification_enable"
+            app:title="@string/notification_reminder"
             app:iconSpaceReserved="false"/>
     </PreferenceCategory>
     <PreferenceCategory

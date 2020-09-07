@@ -8,7 +8,6 @@ class DatabaseContract {
         const val AUTHORITY = "com.fiqsky.githubuserapp"
         const val SCHEME = "context"
     }
-//    val TABLE_NAME = "user"
 
     internal class UserColumns: BaseColumns {
         companion object {

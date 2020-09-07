@@ -131,10 +131,10 @@ class FavoriteActivity : AppCompatActivity() {
         private fun addUsersToAdapter(notes: ArrayList<User>) {
             when {
                 notes.isNotEmpty() -> {
-                    adapter.listFav
+                    adapter.addAll(notes)
                 }
                 else -> {
-                    adapter.listFav
+                    adapter.addAll(notes)
                     Toast.makeText(
                         this@FavoriteActivity,
                         "Tidak ada data saat ini",
