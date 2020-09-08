@@ -258,7 +258,7 @@ class InfoActivity : AppCompatActivity(){
     }*/
 
     private fun addToFavorite(user: User?) {
-        /*if (user != null) {
+        if (user != null) {
             //Inisialisasi content values
             val values = ContentValues()
             values.put(ID,user.id)
@@ -276,17 +276,15 @@ class InfoActivity : AppCompatActivity(){
             val result = helper.insert(values)
             showResult(result)
 //            addButton(state = true)
-        } else {
-            delete(user)
-        }*/
-        val checked = R.string.add_to_favorite
+        }
+        /*val checked = R.string.add_to_favorite
         val unChecked = R.string.delete_from_favorite
         if (isFavorite){
             delete(user)
-        }
+        }*/
     }
 
-    private fun delete(user: User?){
+    /*private fun delete(user: User?){
         val result = user?.userName?.let { helper.deleteByUsername(username = it) }
         if (result != null) {
             if (result > 0) {
@@ -296,15 +294,19 @@ class InfoActivity : AppCompatActivity(){
                 Toast.makeText(this, "Data gagal dihapus", Toast.LENGTH_LONG).show()
             }
         }
-    }
+    }*/
 
     private fun showResult(result: Long) {
+//        val checked = R.string.add_to_favorite
+//        val unChecked = R.string.delete_from_favorite
         when {
             result > 0 -> {
                 Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+//                btn_favorite.setText(unChecked)
             }
             else -> {
                 Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+//                btn_favorite.setText(checked)
             }
         }
     }
