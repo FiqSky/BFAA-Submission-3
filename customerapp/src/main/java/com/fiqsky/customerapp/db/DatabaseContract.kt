@@ -11,7 +11,7 @@ class DatabaseContract {
 
     internal class UserColumns: BaseColumns {
         companion object {
-            private const val TABLE_NAME = "user"
+            const val TABLE_NAME = "user"
             const val ID = "id"
             const val USERNAME = "username"
             const val NAME = "name"

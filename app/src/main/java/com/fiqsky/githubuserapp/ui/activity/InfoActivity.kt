@@ -257,6 +257,10 @@ class InfoActivity : AppCompatActivity(){
         }
     }*/
 
+    private fun insertToFavorite(){
+
+    }
+
     private fun addToFavorite(user: User?) {
         if (user != null) {
             //Inisialisasi content values

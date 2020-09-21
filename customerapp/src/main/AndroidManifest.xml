@@ -3,10 +3,8 @@
     package="com.fiqsky.customerapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <permission android:name="com.fiqsky.githubuserapp.READ_DATABASE"
-        android:protectionLevel="normal"/>
-    <permission android:name="com.fiqsky.githubuserapp.WRITE_DATABASE"
-        android:protectionLevel="normal"/>
+    <permission android:name="com.fiqsky.githubuserapp.READ_DATABASE"/>
+    <permission android:name="com.fiqsky.githubuserapp.WRITE_DATABASE"/>
 
     <application
         android:allowBackup="true"
