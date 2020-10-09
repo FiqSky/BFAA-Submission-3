@@ -36,7 +36,7 @@ class FavoriteProvider : ContentProvider() {
     }
 
     override fun query(
-        p0: Uri,
+        /*p0: Uri,
         p1: Array<out String>?,
         p2: String?,
         p3: Array<out String>?,
@@ -46,6 +46,16 @@ class FavoriteProvider : ContentProvider() {
         when (sUriMatcher.match(p0)) {
             USER -> cursor = helper.queryAll() //Dapatkan list user dari db
             USER_ID -> cursor = helper.queryById(p0.lastPathSegment.toString()) //Dapatkan detail user
+            else -> cursor = null
+        }
+        return cursor*/
+        uri: Uri, projection: Array<String>?, selection: String?,
+        selectionArgs: Array<String>?, sortOrder: String?
+    ): Cursor? {
+        val cursor: Cursor?
+        when (sUriMatcher.match(uri)) {
+            USER -> cursor = helper.queryAll()
+            USER_ID -> cursor = helper.queryById(uri.lastPathSegment.toString())
             else -> cursor = null
         }
         return cursor

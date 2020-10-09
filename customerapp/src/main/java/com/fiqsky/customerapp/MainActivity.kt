@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
 import com.fiqsky.customerapp.db.MappingHelper
+import com.fiqsky.customerapp.db.UserHelper
 import com.fiqsky.customerapp.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +19,19 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+//    private lateinit var helper: UserHelper
     private lateinit var adapter: UserAdapter
+
+    companion object {
+        private const val EXTRA_STATE = "EXTRA_STATE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /*helper = UserHelper.getInstance(applicationContext)
+        helper.open()*/
 
         initRecyclerView()
 
@@ -30,6 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             loadUserAsync()
+        }else {
+            val list = savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)
+            if (list != null) {
+                adapter.listFav = list
+            }
         }
     }
 
@@ -74,7 +88,8 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
 
             val deferredUser = async(Dispatchers.IO) {
-                val cursor = this@MainActivity.contentResolver.query(
+//                val cursor = helper.queryAll()
+                val cursor = contentResolver?.query(
                     CONTENT_URI,
                     null,
                     null,

@@ -17,15 +17,15 @@ import com.fiqsky.githubuserapp.api.ApiClient
 import com.fiqsky.githubuserapp.db.DatabaseContract
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.NAME
+//import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.NAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.LOCATION
+/*import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.LOCATION
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.COMPANY
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG*/
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
+/*import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING
+import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING*/
 import com.fiqsky.githubuserapp.db.UserHelper
 import com.fiqsky.githubuserapp.ui.adapter.SectionAdapter
 import com.fiqsky.githubuserapp.ui.adapter.UserAdapter
@@ -267,14 +267,14 @@ class InfoActivity : AppCompatActivity(){
             val values = ContentValues()
             values.put(ID,user.id)
             values.put(USERNAME, user.userName)
-            values.put(NAME, user.name)
+//            values.put(NAME, user.name)
             values.put(AVATAR_URL, user.avatarUrl)
-            values.put(LOCATION, user.location)
+            /*values.put(LOCATION, user.location)
             values.put(COMPANY, user.company)
             values.put(BLOG, user.blog)
             values.put(REPO, user.publicRepos)
             values.put(FOLLOWER, user.totalFollowers)
-            values.put(FOLLOWING, user.totalFollowing)
+            values.put(FOLLOWING, user.totalFollowing)*/
 
             //Panggil method insert dari helper
             val result = helper.insert(values)
