@@ -43,15 +43,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class InfoActivity : AppCompatActivity(){
+class InfoActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "user"
     }
 
     private var isFavorite = false
-//    private lateinit var id : String
-//    private var user : User? = null
+
+    //    private lateinit var id : String
+    private var user : User? = null
     private lateinit var adapter: SectionAdapter
     private lateinit var uAdapter: UserAdapter
     private lateinit var helper: UserHelper
@@ -74,40 +75,43 @@ class InfoActivity : AppCompatActivity(){
         view_pager.adapter = adapter
         tabs.setupWithViewPager(view_pager)
 
-//        setIsFavorite(isFavorite)
-        btn_favorite.setOnClickListener{
-            addToFavorite(user)
-        }
-
-        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userName)
-        Log.d("iniloh", "ck: $uriWithId")
-        val userFav = contentResolver?.query(uriWithId, null, null, null, null)
+        uriWithId = Uri.parse("$CONTENT_URI/$userName")
+        val userFav = contentResolver.query(uriWithId, null, null, null, null)
         checkFavorite(userFav)
-        Log.d("inikak", "ck: ${checkFavorite(userFav)}")
-
         val cursor: Cursor = helper.queryById(userName)
-        if (cursor.moveToNext()){
+        if (cursor.moveToNext()) {
             isFavorite = true
             setIsFavorite(isFavorite)
         }
-    }
 
-    private fun setIsFavorite(isFavorite: Boolean){
-        val check = R.string.add_to_favorite
-        val checked = R.string.delete_from_favorite
-        if (isFavorite){
-            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
-            btn_favorite.setText(check)
-        } else {
-            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            btn_favorite.setText(checked)
+        btn_favorite.setOnClickListener {
+            addToFavorite(user)
         }
     }
 
-    private fun checkFavorite(favCursor: Cursor?){
+    private fun setIsFavorite(isFavorite: Boolean) {
+        val check = R.string.add_to_favorite
+        val checked = R.string.delete_from_favorite
+        if (isFavorite) {
+            btn_favorite.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            btn_favorite.setText(checked)
+        } else {
+            btn_favorite.backgroundTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
+            btn_favorite.setText(check)
+        }
+    }
+
+    private fun checkFavorite(favCursor: Cursor?) {
         val favObject = MappingHelper.mapCursorToArrayList(favCursor)
         for(data in favObject){
-            isFavorite= true
+            if(this.user?.id == data.id){
+                Log.d("ini", "cekFav favObject: $favObject")
+                Log.d("inisih", "cekData data: $data")
+                isFavorite= true
+                Log.d("inikan", "cekData fav: $isFavorite")
+            }
         }
     }
 
@@ -209,7 +213,7 @@ class InfoActivity : AppCompatActivity(){
             .into(img_avatar)
     }
 
-    private fun addToFavorite(user: User?) {
+    /*private fun addToFavorite(user: User?) {
         if (user != null) {
             //Inisialisasi content values
             val values = ContentValues()
@@ -218,8 +222,32 @@ class InfoActivity : AppCompatActivity(){
             values.put(AVATAR_URL, user.avatarUrl)
 
             //Panggil method insert dari helper
-            val result = helper.insert(values)
-            showResult(result)
+            helper.insert(values)
+            showResult()
+            isFavorite = !isFavorite
+            setIsFavorite(isFavorite)
+//            addButton(state = true)
+        } else {
+            val userName = user?.userName.toString()
+            val result = helper.deleteByUsername(userName)
+            uriWithId = Uri.parse("$CONTENT_URI/$USERNAME")
+            contentResolver.delete(uriWithId, null, null)
+            isFavorite = !isFavorite
+            setIsFavorite(isFavorite)
+            showResultRemove(result)
+        }
+    }*/
+    private fun addToFavorite(user: User?) {
+        if (!isFavorite) {
+            //Inisialisasi content values
+            val values = ContentValues()
+            values.put(ID, user?.id)
+            values.put(USERNAME, user?.userName)
+            values.put(AVATAR_URL, user?.avatarUrl)
+
+            //Panggil method insert dari helper
+            helper.insert(values)
+            showResult()
             isFavorite = !isFavorite
             setIsFavorite(isFavorite)
 //            addButton(state = true)
@@ -234,19 +262,8 @@ class InfoActivity : AppCompatActivity(){
         }
     }
 
-    private fun showResult(result: Long) {
-//        val checked = R.string.add_to_favorite
-//        val unChecked = R.string.delete_from_favorite
-        when {
-            result > 0 -> {
-                Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
-//                btn_favorite.setText(unChecked)
-            }
-            else -> {
-                Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
-//                btn_favorite.setText(checked)
-            }
-        }
+    private fun showResult() {
+        Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
@@ -264,3 +281,4 @@ class InfoActivity : AppCompatActivity(){
             }
         }
     }
+}
