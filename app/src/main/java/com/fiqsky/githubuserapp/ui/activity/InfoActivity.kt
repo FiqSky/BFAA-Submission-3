@@ -78,8 +78,18 @@ class InfoActivity : AppCompatActivity(){
 //            removeFavoriteUser()
             onClick(this)
         }*/
+        setIsFavorite(isFavorite)
         btn_favorite.setOnClickListener{
+            isFavorite = !isFavorite
             addToFavorite(user)
+        }
+    }
+
+    private fun setIsFavorite(isFavorite: Boolean){
+        if (isFavorite){
+            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
+        } else {
+            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 

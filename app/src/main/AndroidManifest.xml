@@ -6,9 +6,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     
-    <permission android:name="com.fiqsky.githubuserapp.READ_DATABASE"
+    <permission
+        android:name="com.fiqsky.githubuserapp.READ_DATABASE"
         android:protectionLevel="normal"/>
-    <permission android:name="com.fiqsky.githubuserapp.WRITE_DATABASE"
+    <permission
+        android:name="com.fiqsky.githubuserapp.WRITE_DATABASE"
         android:protectionLevel="normal"/>
 
     <application
@@ -23,7 +25,9 @@
             android:name=".FavoriteProvider"
             android:authorities="com.fiqsky.githubuserapp"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:readPermission="com.fiqsky.githubuserapp.READ_DATABASE"
+            android:writePermission="com.fiqsky.githubuserapp.WRITE_DATABASE"/>
 
         <activity android:name=".ui.activity.FavoriteActivity" />
 

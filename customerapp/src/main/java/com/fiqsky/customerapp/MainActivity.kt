@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
@@ -65,16 +66,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         adapter = UserAdapter(onClick = { user: User ->
-            Toast.makeText(this, user.name, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, user.userName, Toast.LENGTH_LONG).show()
         })
         rv_main_customer.layoutManager = LinearLayoutManager(this)
         rv_main_customer.adapter = adapter
+        rv_main_customer.hasFixedSize()
     }
 
     private fun addUsersToAdapter(users: ArrayList<User>) {
         when {
             users.isNotEmpty() -> {
                 adapter.addAll(users)
+//                Log.d(EXTRA_STATE, "addUsersToAdapter: " )
             }
             else -> {
                 adapter.addAll(emptyList())
@@ -89,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
             val deferredUser = async(Dispatchers.IO) {
 //                val cursor = helper.queryAll()
-                val cursor = contentResolver?.query(
+                val cursor = this@MainActivity.contentResolver.query(
                     CONTENT_URI,
                     null,
                     null,

@@ -69,8 +69,8 @@ class UserAdapter(
                 .load(user?.avatarUrl)
                 .placeholder(R.drawable.placeholder)
                 .error(R.color.design_default_color_error)
-                .into(itemView.iv_avatar)
-            itemView.tv_username.text = user?.userName
+                .into(itemView.iv_avatar_customer)
+            itemView.tv_username_customer.text = user?.userName
             itemView.setOnClickListener {
                 if (user != null) {
                     onClick?.invoke(user)

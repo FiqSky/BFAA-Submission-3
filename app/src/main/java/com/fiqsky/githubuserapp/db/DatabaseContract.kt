@@ -6,7 +6,7 @@ import android.provider.BaseColumns
 class DatabaseContract {
     companion object {
         const val AUTHORITY = "com.fiqsky.githubuserapp"
-        const val SCHEME = "context"
+        private const val SCHEME = "content"
     }
 
     internal class UserColumns: BaseColumns {

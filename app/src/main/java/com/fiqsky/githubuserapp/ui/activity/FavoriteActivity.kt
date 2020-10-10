@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class FavoriteActivity : AppCompatActivity() {
 
-    private lateinit var helper: UserHelper
+//    private lateinit var helper: UserHelper
     private lateinit var adapter: UserAdapter
 
     companion object {
@@ -37,8 +37,8 @@ class FavoriteActivity : AppCompatActivity() {
         title = getString(R.string.favorite_users)
 
 //            Initialisation class user helper
-            helper = UserHelper.getInstance(applicationContext)
-            helper.open()
+            /*helper = UserHelper.getInstance(applicationContext)
+            helper.open()*/
 
             initRecyclerView()
 
@@ -68,11 +68,6 @@ class FavoriteActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 //            loadNotesAsync()
             loadUsersAsync()
-        } else {
-            val list = savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)
-            if (list != null) {
-                adapter.listFav = list
-            }
         }
 
         }
@@ -83,7 +78,7 @@ class FavoriteActivity : AppCompatActivity() {
                 intent.putExtra(InfoActivity.EXTRA_USER, user)
                 startActivity(intent)
             }, onLongClick = { user, position ->
-                deleteUser(user, position)
+//                deleteUser(user, position)
             })
 //            adapter = UserAdapter()
             rv_favorite.layoutManager = LinearLayoutManager(this)
@@ -106,8 +101,8 @@ class FavoriteActivity : AppCompatActivity() {
                 progress_bar_fav.visibility = View.VISIBLE
                 val deferredNotes = async(Dispatchers.IO) {
                     //Get data query dari tabel
-                    val cursor = helper.queryAll()
-//                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
+//                    val cursor = helper.queryAll()
+                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                     MappingHelper.mapCursorToArrayList(cursor)
                 }
                 progress_bar_fav.visibility = View.INVISIBLE
@@ -138,8 +133,7 @@ class FavoriteActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@FavoriteActivity,
                         "Tidak ada data saat ini",
-                        Toast.LENGTH_LONG
-                    )
+                        Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -162,7 +156,7 @@ class FavoriteActivity : AppCompatActivity() {
             super.onDestroy()
             helper.close()
         }*/
-    private fun deleteUser(user: User, position: Int) {
+    /*private fun deleteUser(user: User, position: Int) {
         val result = helper.deleteByUsername(username = user.userName)
         if (result > 0) {
             adapter.removeItem(position)
@@ -170,5 +164,5 @@ class FavoriteActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Data gagal dihapus", Toast.LENGTH_LONG).show()
         }
-    }
+    }*/
 }

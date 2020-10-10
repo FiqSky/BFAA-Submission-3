@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/iv_avatar_customer"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/placeholder"
@@ -16,13 +16,13 @@
         app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/tv_username_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:text="@string/username"
-        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar_customer"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="20dp" />
 
