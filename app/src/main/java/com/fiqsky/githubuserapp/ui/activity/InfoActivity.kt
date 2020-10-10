@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.database.Cursor
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import android.net.Uri
@@ -23,6 +24,7 @@ import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.COMPANY
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG*/
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
+import com.fiqsky.githubuserapp.db.MappingHelper
 /*import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING*/
@@ -53,6 +55,7 @@ class InfoActivity : AppCompatActivity(){
     private lateinit var adapter: SectionAdapter
     private lateinit var uAdapter: UserAdapter
     private lateinit var helper: UserHelper
+    private lateinit var uriWithId: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,25 +74,40 @@ class InfoActivity : AppCompatActivity(){
         view_pager.adapter = adapter
         tabs.setupWithViewPager(view_pager)
 
-        /*btn_favorite.setOnClickListener{
-//            addToFavorite(user)
-//            addFavoriteUser()
-//            removeFavorite(user)
-//            removeFavoriteUser()
-            onClick(this)
-        }*/
-        setIsFavorite(isFavorite)
+//        setIsFavorite(isFavorite)
         btn_favorite.setOnClickListener{
-            isFavorite = !isFavorite
             addToFavorite(user)
+        }
+
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + user?.userName)
+        Log.d("iniloh", "ck: $uriWithId")
+        val userFav = contentResolver?.query(uriWithId, null, null, null, null)
+        checkFavorite(userFav)
+        Log.d("inikak", "ck: ${checkFavorite(userFav)}")
+
+        val cursor: Cursor = helper.queryById(userName)
+        if (cursor.moveToNext()){
+            isFavorite = true
+            setIsFavorite(isFavorite)
         }
     }
 
     private fun setIsFavorite(isFavorite: Boolean){
+        val check = R.string.add_to_favorite
+        val checked = R.string.delete_from_favorite
         if (isFavorite){
             btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
+            btn_favorite.setText(check)
         } else {
             btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            btn_favorite.setText(checked)
+        }
+    }
+
+    private fun checkFavorite(favCursor: Cursor?){
+        val favObject = MappingHelper.mapCursorToArrayList(favCursor)
+        for(data in favObject){
+            isFavorite= true
         }
     }
 
@@ -189,126 +207,32 @@ class InfoActivity : AppCompatActivity(){
             .placeholder(R.drawable.placeholder)
             .error(R.color.design_default_color_error)
             .into(img_avatar)
-
-        isFavorite = true
-        val checked = R.string.add_to_favorite
-        btn_favorite.setText(checked)
-    }
-
-    /*override fun onClick(view: View){
-        val checked = R.string.add_to_favorite
-        val unChecked = R.string.delete_from_favorite
-        if (view.id == R.id.btn_favorite){
-            if (isFavorite) {
-                *//*helper.deleteById(user?.id.toString())
-                Toast.makeText(this, getString(R.string.delete_from_favorite), Toast.LENGTH_SHORT).show()
-                btn_favorite.setText(unChecked)
-                isFavorite = false*//*
-                val name = txt_name.text.toString()
-
-                val values = ContentValues()
-                values.put(ID, User().id)
-                values.put(USERNAME, User().userName)
-                values.put(NAME, User().name)
-                values.put(AVATAR_URL, User().avatarUrl)
-                values.put(LOCATION, User().location)
-                values.put(COMPANY, User().company)
-                values.put(BLOG, User().blog)
-                values.put(REPO, User().publicRepos)
-                values.put(FOLLOWER, User().totalFollowers)
-                values.put(FOLLOWING, User().totalFollowing)
-
-                isFavorite = false
-//                contentResolver.insert(CONTENT_URI, values)
-                helper.insert(values)
-                Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT).show()
-                btn_favorite.setText(unChecked)
-            } else {
-                *//*val dataUsername = detail_username.text.toString()
-                val dataName = detail_name.text.toString()
-                val dataAvatar = imageAvatar
-                val datacompany = detail_company.text.toString()
-                val dataLocation = detail_location.text.toString()
-                val dataRepository = detail_repository.text.toString()
-                val dataFavorite = "1"
-
-                val values = ContentValues()
-                values.put(USERNAME, dataUsername)
-                values.put(NAME, dataName)
-                values.put(AVATAR, dataAvatar)
-                values.put(COMPANY, datacompany)
-                values.put(LOCATION, dataLocation)
-                values.put(REPOSITORY, dataRepository)
-                values.put(FAVORITE, dataFavorite)*//*
-
-                *//*val values = ContentValues()
-                values.put(ID,User().id)
-                values.put(USERNAME, User().userName)
-                values.put(NAME, User().name)
-                values.put(AVATAR_URL, User().avatarUrl)
-                values.put(LOCATION, User().location)
-                values.put(COMPANY, User().company)
-                values.put(BLOG, User().blog)
-                values.put(REPO, User().publicRepos)
-                values.put(FOLLOWER, User().totalFollowers)
-                values.put(FOLLOWING, User().totalFollowing)
-
-                isFavorite = true
-//                contentResolver.insert(CONTENT_URI, values)
-                helper.insert(values)
-                Toast.makeText(this, getString(R.string.add_to_favorite), Toast.LENGTH_SHORT).show()
-                btn_favorite.setText(checked)*//*
-
-                helper.deleteById(user?.id.toString())
-                Toast.makeText(this, getString(R.string.delete_from_favorite), Toast.LENGTH_SHORT).show()
-                btn_favorite.setText(checked)
-                isFavorite = true
-            }
-        }
-    }*/
-
-    private fun insertToFavorite(){
-
     }
 
     private fun addToFavorite(user: User?) {
         if (user != null) {
             //Inisialisasi content values
             val values = ContentValues()
-            values.put(ID,user.id)
+            values.put(ID, user.id)
             values.put(USERNAME, user.userName)
-//            values.put(NAME, user.name)
             values.put(AVATAR_URL, user.avatarUrl)
-            /*values.put(LOCATION, user.location)
-            values.put(COMPANY, user.company)
-            values.put(BLOG, user.blog)
-            values.put(REPO, user.publicRepos)
-            values.put(FOLLOWER, user.totalFollowers)
-            values.put(FOLLOWING, user.totalFollowing)*/
 
             //Panggil method insert dari helper
             val result = helper.insert(values)
             showResult(result)
+            isFavorite = !isFavorite
+            setIsFavorite(isFavorite)
 //            addButton(state = true)
+        } else {
+            val userName = user?.userName.toString()
+            val result = helper.deleteByUsername(userName)
+            uriWithId = Uri.parse("$CONTENT_URI/$USERNAME")
+            contentResolver.delete(uriWithId, null, null)
+            isFavorite = !isFavorite
+            setIsFavorite(isFavorite)
+            showResultRemove(result)
         }
-        /*val checked = R.string.add_to_favorite
-        val unChecked = R.string.delete_from_favorite
-        if (isFavorite){
-            delete(user)
-        }*/
     }
-
-    /*private fun delete(user: User?){
-        val result = user?.userName?.let { helper.deleteByUsername(username = it) }
-        if (result != null) {
-            if (result > 0) {
-                uAdapter.removeItem()
-                Toast.makeText(this, "Data berhasil dihapus", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "Data gagal dihapus", Toast.LENGTH_LONG).show()
-            }
-        }
-    }*/
 
     private fun showResult(result: Long) {
 //        val checked = R.string.add_to_favorite
@@ -330,66 +254,6 @@ class InfoActivity : AppCompatActivity(){
         helper.close()
     }
 
-    /*private fun addFavoriteUser() {
-        try {
-//            id = intent?.getStringExtra(EXTRA_USER).toString()
-//            avatarUrl = intent?.getStringExtra(EXTRA_AVATAR_URL).toString()
-
-            val values = ContentValues().apply {
-                val values = ContentValues()
-                values.put(ID,User().id)
-                values.put(USERNAME, User().userName)
-                values.put(NAME, User().name)
-                values.put(AVATAR_URL, User().avatarUrl)
-                values.put(LOCATION, User().location)
-                values.put(COMPANY, User().company)
-                values.put(BLOG, User().blog)
-                values.put(REPO, User().publicRepos)
-                values.put(FOLLOWER, User().totalFollowers)
-                values.put(FOLLOWING, User().totalFollowing)
-            }
-            helper.insert(values)
-            Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
-            Log.d("onInsert:.. ", values.toString())
-        } catch (e : SQLiteConstraintException) {
-            e.printStackTrace()
-        }
-    }*/
-
-    /*private fun removeFavoriteUser() {
-        try {
-            id = intent?.getStringExtra(EXTRA_USER).toString()
-
-            val result = helper.deleteById(id)
-//            val text = resources.getString(R.string.set_toast_delete)
-            Toast.makeText(this, "Berhasil menghapus data", Toast.LENGTH_SHORT).show()
-
-            Log.d("on:Remove..", result.toString())
-        } catch (e : SQLiteConstraintException){
-            e.printStackTrace()
-        }
-    }*/
-
-    private fun removeFavorite(user: User?) {
-        if (user == null) {
-            /*//Inisialisasi content values
-            val values = ContentValues()
-            values.put(ID,user?.id)
-            values.put(USERNAME, user?.userName)
-            values.put(NAME, user?.name)
-            values.put(AVATAR_URL, user?.avatarUrl)
-            values.put(LOCATION, user?.location)
-            values.put(COMPANY, user?.company)
-            values.put(BLOG, user?.blog)
-            values.put(REPO, user?.publicRepos)
-            values.put(FOLLOWER, user?.totalFollowers)
-            values.put(FOLLOWING, user?.totalFollowing)*/
-
-            /*val result = helper.deleteById(values)
-            showResultRemove(result)*/
-        }
-    }
-
     private fun showResultRemove(result: Int) {
         when {
             result > 0 -> {
@@ -400,16 +264,3 @@ class InfoActivity : AppCompatActivity(){
             }
         }
     }
-
-    /*fun addButton(state: Boolean) {
-        if (state){
-            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
-            btn_favorite.setTextColor(Color.WHITE)
-            btn_favorite.text = getString(R.string.add_to_favorite)
-        } else {
-            btn_favorite.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            btn_favorite.setTextColor(Color.WHITE)
-            btn_favorite.text = getString(R.string.delete_from_favorite)
-        }
-    }*/
-}
