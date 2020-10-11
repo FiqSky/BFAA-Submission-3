@@ -1,13 +1,12 @@
-package com.fiqsky.customerapp.db
+package com.fiqsky.githubuserapp.db.contentprovider.db
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.ID
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.USERNAME
-import com.fiqsky.customerapp.utils.User
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.ID
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.USERNAME
 
 class UserHelper(context: Context?) {
 

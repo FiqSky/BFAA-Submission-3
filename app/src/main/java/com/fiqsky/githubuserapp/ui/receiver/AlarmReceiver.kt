@@ -1,4 +1,4 @@
-package com.fiqsky.githubuserapp
+package com.fiqsky.githubuserapp.ui.receiver
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.fiqsky.githubuserapp.R
 import com.fiqsky.githubuserapp.ui.activity.MainActivity
 import java.util.*
 
@@ -35,7 +36,9 @@ class AlarmReceiver : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_baseline_notifications_24)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_baseline_notifications_24))
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources,
+                R.drawable.ic_baseline_notifications_24
+            ))
             .setContentTitle(context.resources.getString(R.string.unknown))
             .setContentText(context.getString(R.string.daily_notif_message))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))

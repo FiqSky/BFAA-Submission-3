@@ -1,4 +1,4 @@
-package com.fiqsky.githubuserapp
+package com.fiqsky.githubuserapp.utils
 
 import android.app.Application
 import com.facebook.stetho.Stetho

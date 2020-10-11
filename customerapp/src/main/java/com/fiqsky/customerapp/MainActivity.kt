@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
-import com.fiqsky.customerapp.db.MappingHelper
-import com.fiqsky.customerapp.db.UserHelper
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
+import com.fiqsky.githubuserapp.db.contentprovider.db.MappingHelper
 import com.fiqsky.customerapp.utils.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers

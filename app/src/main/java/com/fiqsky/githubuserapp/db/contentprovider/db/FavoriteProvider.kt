@@ -1,4 +1,4 @@
-package com.fiqsky.githubuserapp
+package com.fiqsky.githubuserapp.db.contentprovider.db
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -6,9 +6,7 @@ import android.content.Context
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import com.fiqsky.githubuserapp.db.DatabaseContract.Companion.AUTHORITY
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.CONTENT_URI
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
+import com.fiqsky.githubuserapp.db.DatabaseContract
 import com.fiqsky.githubuserapp.db.UserHelper
 
 class FavoriteProvider : ContentProvider() {
@@ -22,9 +20,12 @@ class FavoriteProvider : ContentProvider() {
         private val sUriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
         init {
-            sUriMatcher.addURI(AUTHORITY, TABLE_NAME, USER)
-            sUriMatcher.addURI(AUTHORITY,
-                "$TABLE_NAME/#",
+            sUriMatcher.addURI(
+                DatabaseContract.AUTHORITY,
+                DatabaseContract.UserColumns.TABLE_NAME, USER)
+            sUriMatcher.addURI(
+                DatabaseContract.AUTHORITY,
+                "${DatabaseContract.UserColumns.TABLE_NAME}/#",
                 USER_ID)
         }
     }
@@ -70,8 +71,8 @@ class FavoriteProvider : ContentProvider() {
             sUriMatcher.match(p0) -> helper.insert(p1)
             else -> 0
         }
-        context?.contentResolver?.notifyChange(CONTENT_URI, null)
-        return Uri.parse("$CONTENT_URI/$added")
+        context?.contentResolver?.notifyChange(DatabaseContract.UserColumns.CONTENT_URI, null)
+        return Uri.parse("${DatabaseContract.UserColumns.CONTENT_URI}/$added")
     }
 
     override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
@@ -79,7 +80,7 @@ class FavoriteProvider : ContentProvider() {
             sUriMatcher.match(p0) -> helper.deleteById(p0.lastPathSegment.toString())
             else -> 0
         }
-        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+        context?.contentResolver?.notifyChange(DatabaseContract.UserColumns.CONTENT_URI, null)
         return deleted
     }
 

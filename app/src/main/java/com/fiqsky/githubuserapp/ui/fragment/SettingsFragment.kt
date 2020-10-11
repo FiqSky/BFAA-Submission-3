@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.fiqsky.githubuserapp.AlarmReceiver
+import com.fiqsky.githubuserapp.ui.receiver.AlarmReceiver
 import com.fiqsky.githubuserapp.R
 
 class SettingsFragment : PreferenceFragmentCompat() {

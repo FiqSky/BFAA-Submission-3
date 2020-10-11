@@ -1,16 +1,16 @@
-package com.fiqsky.customerapp.db
+package com.fiqsky.githubuserapp.db.contentprovider.db
 
 import android.database.Cursor
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
-/*import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.BLOG
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.COMPANY
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING*/
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.ID
-/*import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.LOCATION
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.NAME
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.REPO*/
-import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.USERNAME
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
+/*import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.BLOG
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.COMPANY
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.FOLLOWER
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.FOLLOWING*/
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.ID
+/*import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.LOCATION
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.NAME
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.REPO*/
+import com.fiqsky.githubuserapp.db.contentprovider.db.DatabaseContract.UserColumns.Companion.USERNAME
 import com.fiqsky.customerapp.utils.User
 
 object MappingHelper {
