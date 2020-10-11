@@ -6,14 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.TABLE_NAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
-//import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.NAME
 import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
-/*import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.LOCATION
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.COMPANY
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.BLOG
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.REPO
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWER
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.FOLLOWING*/
 
 internal class DatabaseHelper(context: Context?): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 

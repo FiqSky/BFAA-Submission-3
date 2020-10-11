@@ -1,4 +1,4 @@
-package com.fiqsky.githubuserapp.db.contentprovider.db
+package com.fiqsky.customerapp.db
 
 import android.net.Uri
 import android.provider.BaseColumns

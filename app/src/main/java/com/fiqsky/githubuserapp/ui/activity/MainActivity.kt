@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private lateinit var adapter: UserAdapter
     private lateinit var searchViewModel: SearchViewModel
-//    private val alarmReceiver = AlarmReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +36,10 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         searchViewModel.searchResults.observe(this, Observer { list: List<User>? ->
             progress(false)
             adapter.addAll(list)
-//            adapter.listFav
         })
 
         initRecyclerView()
         edit_search.setOnEditorActionListener(this)
-
-//        val sharedPreferences : SettingPreference = SettingPreference(applicationContext).getInstance(applicationContext)
-
-        /*if (sharedPreferences.checkInit() == 0){
-            sharedPreferences.setDailyReminder(true)
-            alarmReceiver.setRepeatingAlarm(applicationContext,"07:00","Don't forget to back the app github users")
-        }*/
     }
 
     private fun initRecyclerView() {

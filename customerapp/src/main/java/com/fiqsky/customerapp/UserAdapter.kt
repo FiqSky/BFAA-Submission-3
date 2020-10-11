@@ -35,32 +35,12 @@ class UserAdapter(
         holder.bind(list?.get(position))
     }
 
-    /*fun addAll() {
-        set(listFav){
-            if (listFav.size>0){
-                this.listFav.clear()
-            }
-            this.listFav.addAll(listFav)
-            notifyDataSetChanged()
-        }
-        *//*if (result != null) {
-            list?.clear()
-            list?.addAll(result)
-            notifyDataSetChanged()
-        }*//*
-    }*/
     fun addAll(result: List<User>?) {
         if (result != null) {
             list?.clear()
             list?.addAll(result)
             notifyDataSetChanged()
         }
-    }
-
-    fun removeItem(position: Int) {
-        this.list?.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, this.list?.size ?: 0)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

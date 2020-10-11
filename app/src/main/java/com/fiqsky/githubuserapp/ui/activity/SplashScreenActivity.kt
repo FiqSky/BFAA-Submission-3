@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.fiqsky.githubuserapp.R
 
+@Suppress("DEPRECATION")
 class SplashScreenActivity : AppCompatActivity() {
     private val timeOut : Long = 2000 //2 sec
     override fun onCreate(savedInstanceState: Bundle?) {

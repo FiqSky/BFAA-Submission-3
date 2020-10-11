@@ -14,14 +14,6 @@ data class User(
     val name: String = "",
     @SerializedName("avatar_url")
     val avatarUrl: String = "",
-    /*@SerializedName("url")
-    val url: String = "",*/
-    /*@SerializedName("html_url")
-    val htmlUrl: String = "",*/
-    /*@SerializedName("followers_url")
-    val followersUrl: String = "",
-    @SerializedName("following_url")
-    val followingUrl: String = "",*/
     @SerializedName("location")
     val location: String = "",
     @SerializedName("company")
@@ -34,11 +26,6 @@ data class User(
     val totalFollowers: String = "",
     @SerializedName("following")
     val totalFollowing: String = ""
-    /*@SerializedName()
-    val repository: String = ""*/
-    /*val followersCount: String = "",
-    val followingCount: String = "",
-    val avatar: Int = -1*/
 ) : Parcelable
 
 data class SearchResponse(

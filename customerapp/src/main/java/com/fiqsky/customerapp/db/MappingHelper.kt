@@ -1,10 +1,10 @@
-package com.fiqsky.githubuserapp.db
+package com.fiqsky.customerapp.db
 
 import android.database.Cursor
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.ID
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.USERNAME
-import com.fiqsky.githubuserapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
-import com.fiqsky.githubuserapp.utils.User
+import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.AVATAR_URL
+import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.ID
+import com.fiqsky.customerapp.db.DatabaseContract.UserColumns.Companion.USERNAME
+import com.fiqsky.customerapp.utils.User
 
 object MappingHelper {
 

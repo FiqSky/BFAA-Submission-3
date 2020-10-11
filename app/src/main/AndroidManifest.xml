@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme">
 
         <provider
-            android:name="com.fiqsky.githubuserapp.db.contentprovider.db.FavoriteProvider"
+            android:name="com.fiqsky.githubuserapp.db.contentprovider.FavoriteProvider"
             android:authorities="com.fiqsky.githubuserapp"
             android:enabled="true"
             android:exported="true"

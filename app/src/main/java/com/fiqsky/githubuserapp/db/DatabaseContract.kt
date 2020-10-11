@@ -15,13 +15,6 @@ class DatabaseContract {
             const val ID = "id"
             const val USERNAME = "username"
             const val AVATAR_URL = "avatar_url"
-//            const val NAME = "name"
-            /*const val LOCATION = "location"
-            const val COMPANY = "company"
-            const val BLOG = "blog"
-            const val REPO = "repo"
-            const val FOLLOWER = "follower"
-            const val FOLLOWING = "following"*/
 
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
                 .authority(AUTHORITY)
