@@ -6,4 +6,6 @@
     <color name="colorAccent">#006eff</color>
     <color name="whiteActivityInfo">#202020</color>
     <color name="textColor">#FFFFFF</color>
+    <color name="isFavorite">#BB86FC</color>
+    <color name="xFavorite">#0095F6</color>
 </resources>

@@ -72,11 +72,11 @@ class InfoActivity : AppCompatActivity() {
         val checked = R.string.delete_from_favorite
         if (isFavorite) {
             btn_favorite.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                ColorStateList.valueOf(resources.getColor(R.color.isFavorite))
             btn_favorite.setText(checked)
         } else {
             btn_favorite.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryDark))
+                ColorStateList.valueOf(resources.getColor(R.color.xFavorite))
             btn_favorite.setText(check)
         }
     }
@@ -213,10 +213,10 @@ class InfoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
+    /*override fun onDestroy() {
         super.onDestroy()
         helper.close()
-    }
+    }*/
 
     private fun showResultRemove(result: Int) {
         when {

@@ -5,13 +5,13 @@ import android.provider.BaseColumns
 
 class DatabaseContract {
     companion object{
-        const val AUTHORITY = "com.fiqsky.githubuserapp"
+        private const val AUTHORITY = "com.fiqsky.githubuserapp"
         const val SCHEME = "content"
     }
 
     internal class UserColumns: BaseColumns {
         companion object {
-            const val TABLE_NAME = "user"
+            private const val TABLE_NAME = "user"
             const val ID = "id"
             const val USERNAME = "username"
             const val AVATAR_URL = "avatar_url"
