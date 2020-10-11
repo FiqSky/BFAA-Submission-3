@@ -16,7 +16,7 @@
     <string name="unknown">Unknown</string>
     <string name="nope">-</string>
     <string name="favorite">Favorite</string>
-    <string name="daily_notif_message">Dont Forget to back github user</string>
+    <string name="daily_notif_message">Don`t forget to re-open the github user application</string>
     <string name="reminder">Reminder</string>
     <string name="language">Language</string>
     <string name="add_to_favorite">add to favorite</string>
@@ -25,6 +25,7 @@
     <string name="notification_reminder">Daily Reminder</string>
     <string name="notification_disable">Notification is Disabled</string>
     <string name="notification_enable">Notification is Enabled</string>
+    <string name="change_language">Change Language</string>
 
     <!-- Other string resources-->
 

@@ -23,12 +23,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
         dailyReminderSwitch?.onPreferenceChangeListener = Preference.OnPreferenceChangeListener{ _, _ ->
             if (dailyReminderSwitch?.isChecked!!) {
                 activity?.let { alarmReceiver.cancelAlarm(it) }
-                val text = "alarm is disable"
+                val text = R.string.notification_disable
                 Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
                 dailyReminderSwitch.isChecked = false
             } else {
                 activity?.let { alarmReceiver.setRepeatAlarm(it) }
-                val text = "alarm is enable"
+                val text = R.string.notification_enable
                 Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
                 dailyReminderSwitch.isChecked = true
             }

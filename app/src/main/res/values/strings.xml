@@ -13,18 +13,19 @@
     <string name="link"><u>Tautan</u></string>
     <string name="search">Cari..</string>
     <string name="search_img">Search_img</string>
-    <string name="unknown">Unknown</string>
+    <string name="unknown">Tidak diketahui</string>
     <string name="nope">-</string>
-    <string name="favorite">Favorite</string>
-    <string name="daily_notif_message">Dont Forget to back github user</string>
-    <string name="reminder">Reminder</string>
-    <string name="language">Language</string>
-    <string name="add_to_favorite">add to favorite</string>
-    <string name="favorite_users">favorite users</string>
-    <string name="delete_from_favorite">Delete from favorite</string>
-    <string name="notification_reminder">Daily Reminder</string>
-    <string name="notification_disable">Notification is Disabled</string>
-    <string name="notification_enable">Notification is Enabled</string>
+    <string name="favorite">Favorit</string>
+    <string name="daily_notif_message">Jangan Lupa untuk kembali membuka aplikasi pengguna github</string>
+    <string name="reminder">Pengingat</string>
+    <string name="language">Bahasa</string>
+    <string name="add_to_favorite">Tambahkan ke favorit</string>
+    <string name="favorite_users">pengguna favorit</string>
+    <string name="delete_from_favorite">Hapus dari favorit</string>
+    <string name="notification_reminder">Pengingat Harian</string>
+    <string name="notification_disable">Notifikasi Dinonaktifkan</string>
+    <string name="notification_enable">Notifikasi Diaktifkan</string>
+    <string name="change_language">Ganti Bahasa</string>
 
     <!-- Other string resources-->
 </resources>

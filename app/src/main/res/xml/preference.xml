@@ -17,7 +17,7 @@
         <Preference
             app:icon="@drawable/ic_baseline_language_24"
             app:key="preference_language"
-            app:title="Change Language"
+            app:title="@string/change_language"
             app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 
