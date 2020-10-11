@@ -52,8 +52,18 @@ class UserHelper(context: Context?) {
         return database.query(
             DATABASE_TABLE,
             null,
-            "$ID = ?",
-            arrayOf(id),
+            "$ID = ?", arrayOf(id),
+            null,
+            null,
+            null,
+            null)
+    }
+
+    fun queryByUsername(id: String): Cursor {
+        return database.query(
+            DATABASE_TABLE,
+            null,
+            "$USERNAME = ?", arrayOf(id),
             null,
             null,
             null,

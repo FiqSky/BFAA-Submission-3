@@ -148,6 +148,7 @@ class FavoriteActivity : AppCompatActivity() {
         super.onResume()
         loadUsersAsync()
     }
+
     /*override fun onResume() {
         super.onResume()
         helper.close()

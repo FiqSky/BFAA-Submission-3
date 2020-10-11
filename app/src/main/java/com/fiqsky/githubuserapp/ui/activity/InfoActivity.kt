@@ -52,7 +52,7 @@ class InfoActivity : AppCompatActivity() {
     private var isFavorite = false
 
     //    private lateinit var id : String
-    private var user : User? = null
+    private lateinit var favouriteList: ArrayList<User>
     private lateinit var adapter: SectionAdapter
     private lateinit var uAdapter: UserAdapter
     private lateinit var helper: UserHelper
@@ -62,27 +62,31 @@ class InfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        val user = intent.getParcelableExtra<User>(EXTRA_USER)
-        val userName = user?.userName ?: ""
+        helper = UserHelper.getInstance(applicationContext)
+        helper.open()
+        val user = intent.getParcelableExtra<User>(EXTRA_USER) as User
+        val userName = user.userName ?: ""
         getDetail(userName)
 
         title = userName
 
-        helper = UserHelper.getInstance(applicationContext)
-        helper.open()
 
         adapter = SectionAdapter(supportFragmentManager)
         view_pager.adapter = adapter
         tabs.setupWithViewPager(view_pager)
 
-        uriWithId = Uri.parse("$CONTENT_URI/$userName")
-        val userFav = contentResolver.query(uriWithId, null, null, null, null)
-        checkFavorite(userFav)
-        val cursor: Cursor = helper.queryById(userName)
+        /*uriWithId = Uri.parse("$CONTENT_URI/$userName")
+        val userFav = contentResolver.query(uriWithId, null, null, null, null)*/
+        checkFavorite(user)
+        /*val cursor: Cursor = helper.queryById(userName)
         if (cursor.moveToNext()) {
             isFavorite = true
             setIsFavorite(isFavorite)
-        }
+        }*/
+
+        isFavorite = favouriteList.indexOf(user) >= 0
+        Log.d("status",isFavorite.toString())
+        setIsFavorite(isFavorite)
 
         btn_favorite.setOnClickListener {
             addToFavorite(user)
@@ -103,7 +107,7 @@ class InfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkFavorite(favCursor: Cursor?) {
+    /*private fun checkFavorite(favCursor: Cursor?) {
         val favObject = MappingHelper.mapCursorToArrayList(favCursor)
         for(data in favObject){
             if(this.user?.id == data.id){
@@ -113,6 +117,11 @@ class InfoActivity : AppCompatActivity() {
                 Log.d("inikan", "cekData fav: $isFavorite")
             }
         }
+    }*/
+
+    private fun checkFavorite(user: User){
+        favouriteList = MappingHelper.mapCursorToArrayList(helper.queryByUsername(user.userName))
+        Log.d("checkfavourite", favouriteList.toString())
     }
 
     private fun getFollowers(userName: String, title: String) {
@@ -246,24 +255,31 @@ class InfoActivity : AppCompatActivity() {
             values.put(AVATAR_URL, user?.avatarUrl)
 
             //Panggil method insert dari helper
-            helper.insert(values)
-            showResult()
+            val result = helper.insert(values)
+            showResult(result)
             isFavorite = !isFavorite
             setIsFavorite(isFavorite)
 //            addButton(state = true)
         } else {
             val userName = user?.userName.toString()
             val result = helper.deleteByUsername(userName)
-            uriWithId = Uri.parse("$CONTENT_URI/$USERNAME")
-            contentResolver.delete(uriWithId, null, null)
+//            uriWithId = Uri.parse("$CONTENT_URI/$USERNAME")
+//            contentResolver.delete(uriWithId, null, null)
             isFavorite = !isFavorite
             setIsFavorite(isFavorite)
             showResultRemove(result)
         }
     }
 
-    private fun showResult() {
-        Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+    private fun showResult(result: Long) {
+        when {
+            result > 0 -> {
+                Toast.makeText(this, "Berhasil menambah data", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Toast.makeText(this, "Gagal menambah data", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroy() {
