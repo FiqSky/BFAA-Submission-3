@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pengguna Github</string>
+    <string name="app_name">Github</string>
     <string name="name">Nama</string>
     <string name="number">888</string>
     <string name="username">Username</string>
@@ -21,7 +21,7 @@
     <string name="language">Bahasa</string>
     <string name="add_to_favorite">Tambahkan ke favorit</string>
     <string name="favorite_users">pengguna favorit</string>
-    <string name="delete_from_favorite">Hapus dari favorit</string>
+    <string name="delete_from_favorite">Hapus favorit</string>
     <string name="notification_reminder">Pengingat Harian</string>
     <string name="notification_disable">Notifikasi Dinonaktifkan</string>
     <string name="notification_enable">Notifikasi Diaktifkan</string>
