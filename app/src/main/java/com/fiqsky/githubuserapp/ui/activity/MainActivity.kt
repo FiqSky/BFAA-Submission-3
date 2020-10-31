@@ -29,6 +29,13 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
         setContentView(R.layout.activity_main)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        initViewModel()
+
+        initRecyclerView()
+        edit_search.setOnEditorActionListener(this)
+    }
+
+    private fun initViewModel() {
         searchViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
             SearchViewModel::class.java
         )
@@ -37,9 +44,6 @@ class MainActivity : AppCompatActivity(), TextView.OnEditorActionListener {
             progress(false)
             adapter.addAll(list)
         })
-
-        initRecyclerView()
-        edit_search.setOnEditorActionListener(this)
     }
 
     private fun initRecyclerView() {
